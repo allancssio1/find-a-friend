@@ -23,6 +23,7 @@ model Org {
   state            String
   address_number   String
   created_at       DateTime? @default(now())
+  Pet              Pet[]
 
   @@map("orgs")
 }
@@ -32,10 +33,17 @@ model Pet {
   name       String
   about      String?
   year_old   String
+  disponible Boolean  @default(true)
   created_at DateTime @default(now())
+  Images     Images[]
+
+  org_id Org    @relation(fields: [orgId], references: [id])
+  orgId  String
 }
 
 model Images {
-  id    String @id @unique @default(uuid())
-  image String
+  id     String @id @unique @default(uuid())
+  image  String
+  pet_id Pet    @relation(fields: [petId], references: [id])
+  petId  String
 }
