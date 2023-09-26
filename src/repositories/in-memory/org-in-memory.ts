@@ -32,6 +32,12 @@ export class OrgRepositoryInMemory implements OrgRepository {
     return org ?? null
   }
 
+  async findByEmail(email: string): Promise<ORG | null> {
+    const org = this.items.find((item) => item.email === email)
+
+    return org ?? null
+  }
+
   async findManyByName(query: string, page: number): Promise<ORG[]> {
     const orgs = this.items
       .filter((item) => item.name?.includes(query))
