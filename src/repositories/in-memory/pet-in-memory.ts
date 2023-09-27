@@ -13,7 +13,7 @@ export class PetInMemory implements PetRepository {
       name: data.name,
       about: data.about,
       orgId: data.orgId,
-      disponible: String(data.disponible) !== 'false',
+      available: String(data.available) !== 'false',
       year_old: '2 anos',
       created_at: new Date(),
     }

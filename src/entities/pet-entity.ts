@@ -5,7 +5,7 @@ export interface Pet {
   name?: string
   about?: string
   year_old?: string
-  disponible?: boolean
+  available?: boolean
   orgId?: string
   created_at?: Date
   images?: Images[]

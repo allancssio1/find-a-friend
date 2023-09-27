@@ -33,7 +33,7 @@ model Pet {
   name       String
   about      String?
   year_old   String
-  disponible Boolean  @default(true)
+  available Boolean  @default(true)
   created_at DateTime @default(now())
   Images     Images[]
 
