@@ -1,6 +1,8 @@
 ### Regras da aplicação
 
-[ ] Deve ser possível cadastrar um pet
+<!-- instalar multer e ver como será ssalvo o path da image. -->
+
+[ ] Deve ser possível cadastrar um pet 
 [ ] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade
 [ ] Deve ser possível filtrar pets por suas características
 [ ] Deve ser possível visualizar detalhes de um pet para adoção
