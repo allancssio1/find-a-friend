@@ -2,9 +2,11 @@ import { fastify } from 'fastify'
 import { env } from './env'
 import { ZodError } from 'zod'
 import { routes } from './routes/routes'
+import multipart from '@fastify/multipart'
 
 export const app = fastify()
 
+app.register(multipart)
 app.register(routes)
 
 app.setErrorHandler((error, _, reply) => {

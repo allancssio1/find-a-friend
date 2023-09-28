@@ -6,7 +6,7 @@ import { Images } from '@/entities/images-entity'
 const pets: Pet[] = []
 const images: Images[] = []
 
-export class PetInMemory implements PetRepository {
+export class PetRepositoryInMemory implements PetRepository {
   async create(data: Pet): Promise<Pet> {
     const pet: Pet = {
       id: randomUUID(),
