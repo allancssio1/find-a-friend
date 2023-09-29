@@ -38,7 +38,7 @@ describe('Create ORG', () => {
   })
 
   it('Should be to find many ORGs with pagination', async () => {
-    for (let index = 1; index <= 11; index++) {
+    for (let index = 0; index <= 10; index++) {
       await reporitory.create({
         name: `Org-name-${index}`,
         email: `org.email${index}@email.com`,
@@ -58,7 +58,7 @@ describe('Create ORG', () => {
     expect(orgs.length).toEqual(1)
     expect(orgs).toEqual([
       expect.objectContaining({
-        name: 'Org-name-11',
+        name: 'Org-name-10',
       }),
     ])
   })

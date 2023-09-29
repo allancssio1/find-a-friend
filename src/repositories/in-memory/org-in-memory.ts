@@ -38,6 +38,14 @@ export class OrgRepositoryInMemory implements OrgRepository {
     return org ?? null
   }
 
+  async findByCity(city: string): Promise<ORG[]> {
+    const orgsFiltred = await this.items.filter(
+      (item) => item.city?.toLowerCase() === city.toLowerCase(),
+    )
+
+    return orgsFiltred ?? []
+  }
+
   async findManyByName(query: string, page: number): Promise<ORG[]> {
     const orgs = this.items
       .filter((item) => item.name?.includes(query))
