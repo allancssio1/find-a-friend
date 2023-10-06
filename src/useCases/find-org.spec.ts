@@ -5,7 +5,7 @@ import { hash } from 'bcryptjs'
 
 let reporitory: OrgRepositoryInMemory
 let findOrgsUseCase: FindOrgsUseCase
-describe('Create ORG', () => {
+describe('Find ORG', () => {
   beforeEach(() => {
     reporitory = new OrgRepositoryInMemory()
     findOrgsUseCase = new FindOrgsUseCase(reporitory)

@@ -1,17 +1,17 @@
 import { PetRepositoryInMemory } from '@/repositories/in-memory/pet-in-memory'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { ListPetAvailableUseCase } from './list-pet-available'
+import { ListPetAvailableUseCase } from './list-pets-available'
 import { hash } from 'bcryptjs'
 import { OrgRepositoryInMemory } from '@/repositories/in-memory/org-in-memory'
 
 let reporitory: PetRepositoryInMemory
 let listPetsAvailableUseCase: ListPetAvailableUseCase
 let orgRepository: OrgRepositoryInMemory
-describe('Create ORG', () => {
+describe('List Pets', () => {
   beforeEach(() => {
-    reporitory = new PetRepositoryInMemory()
-    listPetsAvailableUseCase = new ListPetAvailableUseCase(reporitory)
     orgRepository = new OrgRepositoryInMemory()
+    reporitory = new PetRepositoryInMemory(orgRepository)
+    listPetsAvailableUseCase = new ListPetAvailableUseCase(reporitory)
   })
   afterEach(() => {})
   it('Should be to find many ORGs with name in filter', async () => {
@@ -30,15 +30,14 @@ describe('Create ORG', () => {
       })
 
       for (let i = 0; i <= index; i++) {
-        const pet = await reporitory.create({
+        await reporitory.create({
           name: `Pet Name ${index}`,
           orgId: org.id?.toString(),
         })
-        console.log('pet: ', pet.id?.toString())
       }
     }
 
-    const { pets } = await listPetsAvailableUseCase.execute('Maracanau-1', 1)
+    const { pets } = await listPetsAvailableUseCase.execute('Maracanau-2', 1)
 
     expect(pets).toHaveLength(3)
   })

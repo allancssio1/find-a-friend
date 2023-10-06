@@ -2,12 +2,13 @@ import { Pet } from '@/entities/pet-entity'
 import { PetRepository } from '../pet-repository'
 import { randomUUID } from 'crypto'
 import { Images } from '@/entities/images-entity'
-import { OrgRepositoryInMemory } from '@/repositories/in-memory/org-in-memory'
+import { OrgRepository } from '../org-repository'
 
 export class PetRepositoryInMemory implements PetRepository {
   public pets: Pet[] = []
   public images: Images[] = []
-  private orgRepository = new OrgRepositoryInMemory()
+
+  constructor(private orgRepository: OrgRepository) {}
 
   async create(data: Pet): Promise<Pet> {
     const pet: Pet = {
@@ -40,24 +41,19 @@ export class PetRepositoryInMemory implements PetRepository {
     return pet
   }
 
-  async findPetAvailable(city: string, page: number): Promise<Pet[]> {
-    const orgsList = await this.orgRepository.findByCity(city)
+  async findPetAvailable(city: string, page: number): Promise<Pet[] | any> {
+    const orgs = await this.orgRepository.findByCity(city)
 
-    let petsFiltred: Pet[] = []
+    const petsFounded: Pet[] = []
 
-    if (orgsList.length <= 0) {
-      return []
-    }
-
-    orgsList.forEach((org) => {
-      const pets: Pet[] = this.pets
-        .filter((pet) => pet.orgId === org.id)
-        .splice((page - 1) * 10, page * 10)
-      if (pets.length > 0) {
-        petsFiltred = petsFiltred.concat(pets)
-      }
+    await orgs.forEach((org) => {
+      this.pets.forEach((pet) => {
+        if (pet.orgId === org.id) {
+          petsFounded.push(pet)
+        }
+      })
     })
 
-    return petsFiltred
+    return petsFounded || []
   }
 }

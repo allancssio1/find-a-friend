@@ -8,7 +8,7 @@ import { maskPhone } from '@/utils/masks'
 let reporitory: PetRepositoryInMemory
 let createPetUseCase: CreatePetUseCase
 let orgRepository: OrgRepositoryInMemory
-describe('Create ORG', () => {
+describe('Create Pet', () => {
   beforeEach(() => {
     reporitory = new PetRepositoryInMemory()
     createPetUseCase = new CreatePetUseCase(reporitory)

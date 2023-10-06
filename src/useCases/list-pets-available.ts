@@ -5,6 +5,7 @@ export class ListPetAvailableUseCase {
 
   async execute(city: string, page: number) {
     const pets = await this.repository.findPetAvailable(city, page)
+
     return { pets }
   }
 }
