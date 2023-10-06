@@ -48,12 +48,12 @@ export class PetRepositoryInMemory implements PetRepository {
 
     await orgs.forEach((org) => {
       this.pets.forEach((pet) => {
-        if (pet.orgId === org.id) {
+        if (pet.orgId === org.id && pet.available === true) {
           petsFounded.push(pet)
         }
       })
     })
 
-    return petsFounded || []
+    return petsFounded.splice((page - 1) * 10, page * 10) || []
   }
 }
