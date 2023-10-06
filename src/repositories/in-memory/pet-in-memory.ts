@@ -66,4 +66,10 @@ export class PetRepositoryInMemory implements PetRepository {
 
     return petsFounded || []
   }
+
+  async findById(id: string): Promise<Pet | null> {
+    const pet = this.pets.find((pet) => pet.id === id)
+
+    return pet || null
+  }
 }
