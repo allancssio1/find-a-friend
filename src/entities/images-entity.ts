@@ -1,5 +1,5 @@
 export interface Images {
   id?: string
-  petId?: string
-  image?: string
+  petId: string
+  image: string
 }
