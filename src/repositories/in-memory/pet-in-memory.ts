@@ -41,7 +41,7 @@ export class PetRepositoryInMemory implements PetRepository {
     return pet
   }
 
-  async findPetAvailable(city: string, page: number): Promise<Pet[] | any> {
+  async findPetAvailable(city: string, page: number): Promise<Pet[]> {
     const orgs = await this.orgRepository.findByCity(city)
 
     const petsFounded: Pet[] = []
@@ -55,5 +55,15 @@ export class PetRepositoryInMemory implements PetRepository {
     })
 
     return petsFounded.splice((page - 1) * 10, page * 10) || []
+  }
+
+  async filterPetsByCaracterie(query: string, page: number): Promise<Pet[]> {
+    const petsFounded = await this.pets
+      .filter((pet) =>
+        pet.about?.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
+      )
+      .splice((page - 1) * 10, page * 10)
+
+    return petsFounded || []
   }
 }

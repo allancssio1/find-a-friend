@@ -41,30 +41,4 @@ describe('List Pets', () => {
 
     expect(pets).toHaveLength(3)
   })
-
-  // it('Should be to find many ORGs with pagination', async () => {
-  //   for (let index = 1; index <= 11; index++) {
-  //     await reporitory.create({
-  //       name: `Org-name-${index}`,
-  //       email: `org.email${index}@email.com`,
-  //       password_hash: String(hash('123456', 6)),
-  //       address_number: `100`,
-  //       city: `Maracanaú`,
-  //       district: `Timbó`,
-  //       name_responsible: `responsavel-name-${index}`,
-  //       phone_number: '85999999999',
-  //       state: `Ceará`,
-  //       street: `Rua 11${index}`,
-  //     })
-  //   }
-
-  //   const { orgs } = await listPetsAvailableUseCase.execute('Org-name', 2)
-
-  //   expect(orgs.length).toEqual(1)
-  //   expect(orgs).toEqual([
-  //     expect.objectContaining({
-  //       name: 'Org-name-11',
-  //     }),
-  //   ])
-  // })
 })
