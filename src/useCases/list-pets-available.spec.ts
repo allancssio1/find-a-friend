@@ -14,7 +14,7 @@ describe('List Pets', () => {
     listPetsAvailableUseCase = new ListPetAvailableUseCase(reporitory)
   })
   afterEach(() => {})
-  it('Should be to find many ORGs with name in filter', async () => {
+  it('Should be to list pets available', async () => {
     for (let index = 0; index <= 2; index++) {
       const org = await orgRepository.create({
         name: `Org-name-${index}`,
