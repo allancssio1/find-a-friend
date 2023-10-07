@@ -14,12 +14,13 @@ describe('Login ORG', () => {
   afterEach(() => {})
   it('Should be to login org', async () => {
     await reporitory.create({
-      email: 'org-login-test@test.com',
-      password_hash: (await hash('123456', 6)).toString(),
+      name: 'teste',
+      email: 'teste@teste.com',
+      password: '123456',
     })
 
     const { org } = await loginUseCase.execute({
-      email: 'org-login-test@test.com',
+      email: 'teste@teste.com',
       password: '123456',
     })
 

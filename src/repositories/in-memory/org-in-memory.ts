@@ -1,6 +1,7 @@
 import { ORG } from '@/entities/org-entity'
 import { OrgRepository } from '../org-repository'
 import { randomUUID } from 'crypto'
+import { hash } from 'bcryptjs'
 
 export class OrgRepositoryInMemory implements OrgRepository {
   public items: ORG[] = []
@@ -10,8 +11,8 @@ export class OrgRepositoryInMemory implements OrgRepository {
       id: randomUUID(),
       name: data.name,
       email: data.email,
-      password_hash: data.password_hash,
-      phone_number: data.phone_number,
+      password_hash: await hash(String(data.password), 6),
+      phone_number: String(data.phone_number).replace(/\D/g, ''),
       name_responsible: data.name_responsible,
       street: data.street,
       city: data.city,
@@ -23,7 +24,7 @@ export class OrgRepositoryInMemory implements OrgRepository {
 
     this.items.push(org)
 
-    return org
+    return { ...org, password: null, password_hash: null }
   }
 
   async findById(id: string): Promise<ORG | null> {
