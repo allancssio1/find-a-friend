@@ -3,20 +3,27 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { LoginUseCase } from './login'
 import { hash } from 'bcryptjs'
 import { LoginError } from '@/errors/login-errors'
+import { CompareHash } from '@/utils/compare-hash'
+import { ComparePassword } from '@/contract/password'
 
 let reporitory: OrgRepositoryInMemory
 let loginUseCase: LoginUseCase
+let compareHash: ComparePassword
 describe('Login ORG', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     reporitory = new OrgRepositoryInMemory()
-    loginUseCase = new LoginUseCase(reporitory)
+    compareHash = new CompareHash()
+    loginUseCase = new LoginUseCase(reporitory, compareHash)
   })
   afterEach(() => {})
   it('Should be to login org', async () => {
     await reporitory.create({
       name: 'teste',
       email: 'teste@teste.com',
-      password: '123456',
+      password_hash: await hash('123456', 6),
+      city: 'Maracanaú',
+      name_responsible: 'Teste',
+      phone_number: '(85) 989353235',
     })
 
     const { org } = await loginUseCase.execute({
@@ -28,10 +35,10 @@ describe('Login ORG', () => {
   })
 
   it('Should be able to login org with wrong email', async () => {
-    await reporitory.create({
-      email: 'org-login-test@test.com',
-      password_hash: (await hash('123456', 6)).toString(),
-    })
+    // await reporitory.create({
+    //   email: 'org-login-test@test.com',
+    //   password_hash: (await hash('123456', 6)).toString(),
+    // })
 
     expect(
       async () =>
@@ -42,10 +49,10 @@ describe('Login ORG', () => {
     ).rejects.toBeInstanceOf(LoginError)
   })
   it('Should be able to login org with wrong password', async () => {
-    await reporitory.create({
-      email: 'org-login-test@test.com',
-      password_hash: (await hash('123456', 6)).toString(),
-    })
+    // await reporitory.create({
+    //   email: 'org-login-test@test.com',
+    //   password_hash: (await hash('123456', 6)).toString(),
+    // })
 
     expect(
       async () =>

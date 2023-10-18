@@ -1,7 +1,7 @@
-import { ORG } from '@/entities/org-entity'
+import { ComparePassword } from '@/contract/password'
 import { LoginError } from '@/errors/login-errors'
 import { OrgRepository } from '@/repositories/org-repository'
-import { compare } from 'bcryptjs'
+import { Org } from '@prisma/client'
 
 interface AuthenticateUseCaseRequest {
   email: string
@@ -9,11 +9,14 @@ interface AuthenticateUseCaseRequest {
 }
 
 interface AuthenticateUseCaseResponse {
-  org: ORG
+  org: Org
 }
 
 export class LoginUseCase {
-  constructor(private readonly repository: OrgRepository) {}
+  constructor(
+    private readonly repository: OrgRepository,
+    private readonly compare: ComparePassword,
+  ) {}
 
   async execute({
     email,
@@ -23,9 +26,9 @@ export class LoginUseCase {
 
     if (!org) throw new LoginError()
 
-    const doesPasswordMatchs = await compare(
+    const doesPasswordMatchs = this.compare.compareHash(
       password,
-      String(org.password_hash),
+      org.password_hash,
     )
 
     if (!doesPasswordMatchs) throw new LoginError()

@@ -17,11 +17,11 @@ model Org {
   password_hash    String
   phone_number     String
   name_responsible String
-  street           String
+  street           String?
   city             String
-  district         String
-  state            String
-  address_number   String
+  district         String?
+  state            String?
+  address_number   String?
   created_at       DateTime? @default(now())
   Pet              Pet[]
 
@@ -33,7 +33,7 @@ model Pet {
   name       String
   about      String?
   year_old   String
-  available Boolean  @default(true)
+  available  Boolean  @default(true)
   created_at DateTime @default(now())
   Images     Images[]
 

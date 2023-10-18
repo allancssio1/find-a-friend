@@ -1,9 +1,9 @@
-import { ORG } from '@/entities/org-entity'
+import { Org, Prisma } from '@prisma/client'
 
 export interface OrgRepository {
-  create(data: ORG): Promise<ORG>
-  findById(id: string): Promise<ORG | null>
-  findByCity(city: string): Promise<ORG[]>
-  findByEmail(email: string): Promise<ORG | null>
-  findManyByName(query: string, page: number): Promise<ORG[]>
+  create(data: Prisma.OrgCreateInput): Promise<Org>
+  findById(id: string): Promise<Org | null>
+  findByCity(city: string): Promise<Org[]>
+  findByEmail(email: string): Promise<Org | null>
+  findManyByName(query: string, page: number): Promise<Org[]>
 }

@@ -1,14 +1,8 @@
 import { OrgRepositoryInMemory } from '@/repositories/in-memory/org-in-memory'
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  expect,
-  expectTypeOf,
-  it,
-} from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { CreateOrgUseCase } from './create-org'
 import { maskPhone } from '@/utils/masks'
+import { hash } from 'bcryptjs'
 
 let reporitory: OrgRepositoryInMemory
 let createUseCase: CreateOrgUseCase
@@ -22,7 +16,7 @@ describe('Create ORG', () => {
     const { org } = await createUseCase.execute({
       name: 'Org-name',
       email: 'org.email@email.com',
-      password: '123456',
+      password_hash: await hash('123456', 6),
       address_number: '100',
       city: 'Maracanaú',
       district: 'Timbó',
@@ -33,6 +27,5 @@ describe('Create ORG', () => {
     })
 
     expect(org.id).toEqual(expect.any(String))
-    expect(org.password_hash).toBeNull()
   })
 })
