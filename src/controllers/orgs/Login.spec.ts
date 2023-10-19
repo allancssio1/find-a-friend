@@ -22,6 +22,7 @@ describe('', () => {
       email: 'org.email@email.com',
       password: '123456',
     })
+    console.log('🚀 ~ response:', response.statusCode)
 
     expect(response.statusCode).toEqual(200)
     expect(response.body).toEqual({

@@ -12,7 +12,7 @@
     "test:install-environment": "npm link vitest-environment-prisma",
     "test": "vitest run --dir src/useCases",
     "test:watch": "vitest --watch src/useCases",
-    "test:e2e": "vitest run --dir src/http",
+    "test:e2e": "vitest run --dir src/controllers",
     "test:coverage": "vitest run --coverage",
     "test:all": "vitest run"
   },
