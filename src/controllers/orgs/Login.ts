@@ -20,7 +20,6 @@ export async function login(request: FastifyRequest, reply: FastifyReply) {
     const token = await reply.jwtSign({
       sub: org.id,
     })
-    console.log('class route', token)
 
     const refreshToken = await reply.jwtSign({
       sub: org.id,

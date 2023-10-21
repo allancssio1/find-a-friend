@@ -1,12 +1,10 @@
-import { Pet } from '@/entities/pet-entity'
 import { PetRepository } from '../pet-repository'
 import { randomUUID } from 'crypto'
-import { Images } from '@/entities/images-entity'
 import { OrgRepository } from '../org-repository'
+import { Pet } from '@prisma/client'
 
 export class PetRepositoryInMemory implements PetRepository {
   public pets: Pet[] = []
-  public images: Images[] = []
 
   constructor(private orgRepository: OrgRepository) {}
 
@@ -19,21 +17,6 @@ export class PetRepositoryInMemory implements PetRepository {
       available: String(data.available) !== 'false',
       year_old: '2 anos',
       created_at: new Date(),
-    }
-
-    if (data.images && data.images.length > 0) {
-      await data.images.forEach((item) => {
-        const image = {
-          id: randomUUID(),
-          image: item.image ?? '',
-          petId: pet.id,
-        }
-        this.images.push(image)
-      })
-    }
-
-    if (this.images.length > 0) {
-      pet.images = this.images
     }
 
     await this.pets.push(pet)

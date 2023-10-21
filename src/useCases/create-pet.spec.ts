@@ -10,9 +10,9 @@ let createPetUseCase: CreatePetUseCase
 let orgRepository: OrgRepositoryInMemory
 describe('Create Pet', () => {
   beforeEach(() => {
-    reporitory = new PetRepositoryInMemory()
-    createPetUseCase = new CreatePetUseCase(reporitory)
     orgRepository = new OrgRepositoryInMemory()
+    reporitory = new PetRepositoryInMemory(orgRepository)
+    createPetUseCase = new CreatePetUseCase(reporitory)
   })
   afterEach(() => {})
   it('Should be to create a ORG', async () => {

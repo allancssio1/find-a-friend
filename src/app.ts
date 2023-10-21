@@ -31,7 +31,7 @@ app.setErrorHandler((error, _, reply) => {
       message: error.message,
     })
   }
-
+  console.log(error)
   if (env.NODE_ENV !== 'production') {
     console.log(error.message)
   } else {

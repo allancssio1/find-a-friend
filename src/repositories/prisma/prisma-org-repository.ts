@@ -16,8 +16,9 @@ export class PrismaOrgRepository implements OrgRepository {
     throw new Error('Method not implemented.')
   }
 
-  findByEmail(email: string): Promise<Org | null> {
-    throw new Error('Method not implemented.')
+  async findByEmail(email: string): Promise<Org | null> {
+    const org = await prisma.org.findUnique({ where: { email } })
+    return org
   }
 
   findManyByName(query: string, page: number): Promise<Org[]> {

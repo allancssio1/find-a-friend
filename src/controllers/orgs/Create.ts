@@ -10,17 +10,32 @@ export async function createOrg(req: FastifyRequest, reply: FastifyReply) {
     password: z
       .string()
       .min(6, { message: 'Password lenght min 6 caracterie.' }),
-    phone_number: z
+    phone_number: z.string().refine((value) => value ?? null, {
+      message: 'Phone number is mandatory.',
+    }),
+    name_responsible: z.string().refine((value) => value ?? null, {
+      message: 'Name reponsible is mandatory.',
+    }),
+    city: z
       .string()
-      .refine((value) => value ?? 'Phone number is mandatory.'),
-    name_responsible: z
+      .refine((value) => value ?? null, { message: 'City is mandatory.' }),
+    // street: z.string().optional().refine((value) => value ?? ''),
+    street: z
       .string()
-      .refine((value) => value ?? 'Name reponsible is mandatory.'),
-    city: z.string().refine((value) => value ?? 'City is mandatory.'),
-    street: z.string().nullable(),
-    district: z.string().nullable(),
-    state: z.string().nullable(),
-    address_number: z.string().nullable(),
+      .optional()
+      .transform((value) => value ?? ''),
+    district: z
+      .string()
+      .optional()
+      .transform((value) => value ?? ''),
+    state: z
+      .string()
+      .optional()
+      .transform((value) => value ?? ''),
+    address_number: z
+      .string()
+      .optional()
+      .transform((value) => value ?? ''),
   })
 
   const {
