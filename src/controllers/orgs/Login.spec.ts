@@ -1,7 +1,7 @@
 import { app } from '@/app'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import request from 'supertest'
-describe.skip('Login Org', () => {
+describe('Login Org', () => {
   beforeEach(async () => {
     await app.ready()
   })
@@ -9,7 +9,7 @@ describe.skip('Login Org', () => {
     await app.close()
   })
   it('Should bi able to make login', async () => {
-    const res = await request(app.server).post('/orgs').send({
+    await request(app.server).post('/orgs').send({
       name: 'Org-name',
       email: 'org.email@email.com',
       password: '123456',
@@ -18,13 +18,10 @@ describe.skip('Login Org', () => {
       phone_number: '85999999999',
     })
 
-    console.log('org', res.body)
-
     const response = await request(app.server).post('/login').send({
       email: 'org.email@email.com',
       password: '123456',
     })
-    console.log('🚀 ~ response:', response.statusCode)
 
     expect(response.statusCode).toEqual(200)
     expect(response.body).toEqual({
