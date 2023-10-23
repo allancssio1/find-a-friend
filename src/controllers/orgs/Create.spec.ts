@@ -18,8 +18,6 @@ describe('Create Org', () => {
       phone_number: '85999999999',
     })
 
-    console.log('🚀 ~ response:', response.body.message)
-
     expect(response.statusCode).toEqual(201)
   })
 })
