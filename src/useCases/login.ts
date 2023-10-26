@@ -26,7 +26,7 @@ export class LoginUseCase {
 
     if (!org) throw new LoginError()
 
-    const doesPasswordMatchs = this.compare.compareHash(
+    const doesPasswordMatchs = await this.compare.compareHash(
       password,
       org.password_hash,
     )

@@ -1,19 +1,19 @@
 import { PetRepository } from '../pet-repository'
 import { randomUUID } from 'crypto'
 import { OrgRepository } from '../org-repository'
-import { Pet } from '@prisma/client'
+import { Pet, Prisma } from '@prisma/client'
 
 export class PetRepositoryInMemory implements PetRepository {
   public pets: Pet[] = []
 
   constructor(private orgRepository: OrgRepository) {}
 
-  async create(data: Pet): Promise<Pet> {
+  async create(data: Prisma.PetCreateInput): Promise<Pet> {
     const pet: Pet = {
       id: randomUUID(),
       name: data.name,
-      about: data.about,
-      orgId: data.orgId,
+      about: data.about ?? null,
+      orgId: String(data.org_id),
       available: String(data.available) !== 'false',
       year_old: '2 anos',
       created_at: new Date(),

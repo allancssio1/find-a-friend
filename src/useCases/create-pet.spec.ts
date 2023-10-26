@@ -32,7 +32,8 @@ describe('Create Pet', () => {
     const { pet } = await createPetUseCase.execute({
       name: 'Pet-name',
       about: 'Test about pet',
-      orgId: org.id?.toString(),
+      year_old: 'três meses',
+      org_id: org.id,
     })
 
     expect(pet.id).toEqual(expect.any(String))

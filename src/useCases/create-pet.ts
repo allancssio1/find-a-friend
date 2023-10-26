@@ -1,9 +1,9 @@
-import { Pet } from '@/entities/pet-entity'
 import { PetRepository } from '@/repositories/pet-repository'
+import { Prisma } from '@prisma/client'
 
 export class CreatePetUseCase {
   constructor(private readonly repository: PetRepository) {}
-  async execute(data: Pet) {
+  async execute(data: Prisma.PetCreateInput) {
     const pet = await this.repository.create(data)
 
     return { pet }
