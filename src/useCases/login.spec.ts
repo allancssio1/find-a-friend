@@ -1,7 +1,6 @@
 import { OrgRepositoryInMemory } from '@/repositories/in-memory/org-in-memory'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { LoginUseCase } from './login'
-import { hash } from 'bcryptjs'
 import { LoginError } from '@/errors/login-errors'
 import { CompareHash } from '@/utils/compare-hash'
 import { ComparePassword } from '@/contract/password'
@@ -35,10 +34,14 @@ describe('Login ORG', () => {
   })
 
   it('Should be able to login org with wrong email', async () => {
-    // await reporitory.create({
-    //   email: 'org-login-test@test.com',
-    //   password_hash: (await hash('123456', 6)).toString(),
-    // })
+    await reporitory.create({
+      name: 'teste',
+      email: 'teste@teste.com',
+      password_hash: '123456',
+      city: 'Maracanaú',
+      name_responsible: 'Teste',
+      phone_number: '(85) 989353235',
+    })
 
     expect(
       async () =>
@@ -49,10 +52,14 @@ describe('Login ORG', () => {
     ).rejects.toBeInstanceOf(LoginError)
   })
   it('Should be able to login org with wrong password', async () => {
-    // await reporitory.create({
-    //   email: 'org-login-test@test.com',
-    //   password_hash: (await hash('123456', 6)).toString(),
-    // })
+    await reporitory.create({
+      name: 'teste',
+      email: 'teste@teste.com',
+      password_hash: '123456',
+      city: 'Maracanaú',
+      name_responsible: 'Teste',
+      phone_number: '(85) 989353235',
+    })
 
     expect(
       async () =>

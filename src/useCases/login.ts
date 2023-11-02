@@ -31,8 +31,6 @@ export class LoginUseCase {
       org.password_hash,
     )
 
-    console.log(password, org.password_hash, doesPasswordMatchs)
-
     if (!doesPasswordMatchs) throw new LoginError()
 
     return { org }

@@ -7,7 +7,6 @@ export class CompareHash implements ComparePassword {
     let doesPasswordMatchs: boolean
 
     if (env.NODE_ENV === 'dev' || env.NODE_ENV === 'test') {
-      console.log('=> ENV =>', env.NODE_ENV)
       doesPasswordMatchs = password === passwordHash
     } else {
       doesPasswordMatchs = await compare(password, passwordHash)
