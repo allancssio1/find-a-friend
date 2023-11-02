@@ -20,7 +20,7 @@ describe('Login ORG', () => {
     await reporitory.create({
       name: 'teste',
       email: 'teste@teste.com',
-      password_hash: await hash('123456', 6),
+      password_hash: '123456',
       city: 'Maracanaú',
       name_responsible: 'Teste',
       phone_number: '(85) 989353235',
