@@ -8,12 +8,12 @@ export class PetRepositoryInMemory implements PetRepository {
 
   constructor(private orgRepository: OrgRepository) {}
 
-  async create(data: Prisma.PetCreateInput): Promise<Pet> {
+  async create(data: Prisma.PetUncheckedCreateInput): Promise<Pet> {
     const pet: Pet = {
       id: randomUUID(),
       name: data.name,
       about: data.about ?? null,
-      orgId: String(data.org_id),
+      orgId: String(data.orgId),
       available: String(data.available) !== 'false',
       year_old: '2 anos',
       created_at: new Date(),

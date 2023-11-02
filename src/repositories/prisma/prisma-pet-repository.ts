@@ -6,7 +6,7 @@ import { OrgRepository } from '../org-repository'
 export class PrismaPetRepository implements PetRepository {
   constructor(private readonly orgRepository: OrgRepository) {}
 
-  async create(data: Prisma.PetCreateInput) {
+  async create(data: Prisma.PetUncheckedCreateInput) {
     const pet = await prisma.pet.create({ data })
     return pet
   }
@@ -41,6 +41,7 @@ export class PrismaPetRepository implements PetRepository {
   }
 
   async findById(id: string) {
-    return null
+    const pet = await prisma.pet.findUnique({ where: { id } })
+    return pet
   }
 }

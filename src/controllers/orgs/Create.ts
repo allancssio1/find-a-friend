@@ -1,4 +1,4 @@
-import { makeCreateOrgUseCase } from '@/useCases/factories/makeCreateOrgUseCase'
+import { makeCreateOrgUseCase } from '@/factories/makeCreateOrgUseCase'
 import { hash } from 'bcryptjs'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'

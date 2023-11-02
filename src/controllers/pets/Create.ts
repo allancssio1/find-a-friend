@@ -1,43 +1,48 @@
 // import { makeCreateOrgUseCase } from '@/useCases/factories/makeCreateOrgUseCase'
 // import { hash } from 'bcryptjs'
-import { Pet } from '@prisma/client'
+import { makeCreatePetUseCase } from '@/factories/makeCreatePetUseCase'
+import { makeFindOrgUseCase } from '@/factories/makeFindOrgUseCase'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
 export async function createPet(req: FastifyRequest, reply: FastifyReply) {
-  const createBodySchema: Pet = z.object({
-    name: z.string(),
+  const createBodySchema = z.object({
+    name: z
+      .string()
+      .refine((value) => value ?? null, { message: 'Pet name is required.' }),
+    about: z
+      .string()
+      .refine((value) => value ?? null, { message: 'Pet about is required.' }),
+    year_old: z.string().refine((value) => value ?? null, {
+      message: 'Pet years old is required.',
+    }),
+    available: z.string().refine((value) => value ?? null, {
+      message: 'Available is required with "true" or "false".',
+    }),
+    orgId: z
+      .string()
+      .refine((value) => value ?? null, { message: 'Org id is required.' }),
+    images: z.array(z.object({})).optional(),
   })
 
-  // const {
-  //   name,
-  //   email,
-  //   name_responsible,
-  //   password,
-  //   phone_number,
-  //   city,
-  //   address_number,
-  //   district,
-  //   state,
-  //   street,
-  // } = createBodySchema.parse(req.body)
+  const { name, about, available, year_old, orgId } = createBodySchema.parse(
+    req.body,
+  )
 
-  // const password_hash = await hash(password, 6)
+  const availableTemp = available === 'true' ?? false
+  const findOrgUseCase = makeFindOrgUseCase()
+  const { org } = await findOrgUseCase.execute(orgId)
 
-  // const createOrgUseCase = makeCreateOrgUseCase()
+  if (!org) return reply.status(404).send({ message: 'Org not found!' })
 
-  // const { org } = await createOrgUseCase.execute({
-  //   name,
-  //   email,
-  //   name_responsible,
-  //   password_hash,
-  //   phone_number,
-  //   city,
-  //   address_number,
-  //   district,
-  //   state,
-  //   street,
-  // })
-  // return reply.status(201).send({ ...org, password_hash: null })
-  return reply.status(201).send()
+  const createPetUseCase = makeCreatePetUseCase()
+
+  const { pet } = await createPetUseCase.execute({
+    name,
+    about,
+    year_old,
+    available: availableTemp,
+    orgId,
+  })
+  return reply.status(201).send(pet)
 }

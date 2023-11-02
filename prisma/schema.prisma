@@ -37,8 +37,8 @@ model Pet {
   created_at DateTime @default(now())
   Images     Images[]
 
-  org_id Org    @relation(fields: [orgId], references: [id])
-  orgId  String
+  org   Org    @relation(fields: [orgId], references: [id])
+  orgId String
 }
 
 model Images {

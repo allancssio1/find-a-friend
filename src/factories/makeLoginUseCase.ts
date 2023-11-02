@@ -1,5 +1,5 @@
 import { PrismaOrgRepository } from '@/repositories/prisma/prisma-org-repository'
-import { LoginUseCase } from '../login'
+import { LoginUseCase } from '../useCases/login'
 import { CompareHash } from '@/utils/compare-hash'
 
 export function makeLoginUseCase() {

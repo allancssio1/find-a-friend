@@ -1,5 +1,5 @@
 import { LoginError } from '@/errors/login-errors'
-import { makeLoginUseCase } from '@/useCases/factories/makeLoginUseCase'
+import { makeLoginUseCase } from '@/factories/makeLoginUseCase'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 

@@ -33,7 +33,7 @@ describe('Create Pet', () => {
       name: 'Pet-name',
       about: 'Test about pet',
       year_old: 'três meses',
-      org_id: org.id,
+      orgId: org.id,
     })
 
     expect(pet.id).toEqual(expect.any(String))
