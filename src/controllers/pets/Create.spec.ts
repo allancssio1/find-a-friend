@@ -18,10 +18,10 @@ describe('Create Org', () => {
       phone_number: '85999999999',
     })
 
-    const response = await request(app.server).post('/pet').send({
+    const response = await request(app.server).post('/pets').send({
       name: 'doguinho',
       about: 'doguinho bonitinho',
-      available: true,
+      available: 'true',
       year_old: '3 anos',
       orgId: responseOrg.body.id,
     })

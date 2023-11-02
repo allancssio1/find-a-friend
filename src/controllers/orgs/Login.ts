@@ -37,7 +37,6 @@ export async function login(request: FastifyRequest, reply: FastifyReply) {
         token,
       })
   } catch (error) {
-    console.log('🚀 ~ file: Login.ts:40 ~ login ~ error:', error)
     if (error instanceof LoginError) {
       return reply.status(400).send({ message: error.message })
     }

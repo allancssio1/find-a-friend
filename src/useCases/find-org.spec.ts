@@ -1,7 +1,6 @@
 import { OrgRepositoryInMemory } from '@/repositories/in-memory/org-in-memory'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { FindOrgsUseCase } from './find-org'
-import { hash } from 'bcryptjs'
 
 let reporitory: OrgRepositoryInMemory
 let findOrgsUseCase: FindOrgsUseCase
@@ -15,7 +14,7 @@ describe('Find ORG', () => {
     const orgCreated = await reporitory.create({
       name: `Org-name-1`,
       email: `org.email1@email.com`,
-      password_hash: String(hash('123456', 6)),
+      password_hash: '123456',
       address_number: `100`,
       city: `Maracanaú`,
       district: `Timbó`,
@@ -28,7 +27,7 @@ describe('Find ORG', () => {
     await reporitory.create({
       name: `Org-name-2`,
       email: `org.email2@email.com`,
-      password_hash: String(hash('123456', 6)),
+      password_hash: '123456',
       address_number: `100`,
       city: `Maracanaú`,
       district: `Timbó`,

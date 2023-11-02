@@ -12,17 +12,16 @@ export class PrismaPetRepository implements PetRepository {
   }
 
   async findPetAvailable(city: string, page: number) {
-    const pets = await prisma.org.findMany({
-      where: { city },
-      select: {
-        Pet: {
-          where: {
-            available: true,
-          },
-        },
-      },
-    })
-    console.log('🚀 ~  pets:', pets)
+    // const pets = await prisma.org.findMany({
+    //   where: { city },
+    //   select: {
+    //     Pet: {
+    //       where: {
+    //         available: true,
+    //       },
+    //     },
+    //   },
+    // })
 
     // await orgs.forEach(async (org) => {
     //   const petsFounded = await prisma.pet.findMany({

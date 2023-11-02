@@ -19,6 +19,7 @@ describe('List Pets', () => {
       await reporitory.create({
         name: `Pet Name ${index}`,
         orgId: randomUUID(),
+        year_old: `${index} anos`,
         about:
           index === 0
             ? `Picher rabo curto ${index + 2} meses`

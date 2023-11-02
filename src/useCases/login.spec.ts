@@ -2,7 +2,7 @@ import { OrgRepositoryInMemory } from '@/repositories/in-memory/org-in-memory'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { LoginUseCase } from './login'
 import { LoginError } from '@/errors/login-errors'
-import { CompareHash } from '@/utils/compare-hash'
+import { CompareHashTests } from '@/utils/compareHash/compare-test'
 import { ComparePassword } from '@/contract/password'
 
 let reporitory: OrgRepositoryInMemory
@@ -11,7 +11,7 @@ let compareHash: ComparePassword
 describe('Login ORG', () => {
   beforeEach(async () => {
     reporitory = new OrgRepositoryInMemory()
-    compareHash = new CompareHash()
+    compareHash = new CompareHashTests()
     loginUseCase = new LoginUseCase(reporitory, compareHash)
   })
   afterEach(() => {})

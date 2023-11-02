@@ -2,7 +2,6 @@ import { PetRepositoryInMemory } from '@/repositories/in-memory/pet-in-memory'
 import { OrgRepositoryInMemory } from '@/repositories/in-memory/org-in-memory'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { FindPetUseCase } from './find-pet'
-import { hash } from 'bcryptjs'
 
 let reporitory: PetRepositoryInMemory
 let orgReporitory: OrgRepositoryInMemory
@@ -18,7 +17,7 @@ describe('Find Pet', () => {
     const org = await orgReporitory.create({
       name: 'Org-name',
       email: 'org.email@email.com',
-      password_hash: String(hash('123456', 6)),
+      password_hash: '123456',
       address_number: '100',
       city: 'Maracanaú',
       district: 'Timbó',

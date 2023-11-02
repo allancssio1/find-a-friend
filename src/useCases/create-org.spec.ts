@@ -2,7 +2,6 @@ import { OrgRepositoryInMemory } from '@/repositories/in-memory/org-in-memory'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { CreateOrgUseCase } from './create-org'
 import { maskPhone } from '@/utils/masks'
-import { hash } from 'bcryptjs'
 
 let reporitory: OrgRepositoryInMemory
 let createUseCase: CreateOrgUseCase
@@ -16,7 +15,7 @@ describe('Create ORG', () => {
     const { org } = await createUseCase.execute({
       name: 'Org-name',
       email: 'org.email@email.com',
-      password_hash: await hash('123456', 6),
+      password_hash: '123456',
       address_number: '100',
       city: 'Maracanaú',
       district: 'Timbó',
