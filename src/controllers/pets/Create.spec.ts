@@ -18,13 +18,21 @@ describe('Create Org', () => {
       phone_number: '85999999999',
     })
 
-    const response = await request(app.server).post('/pets').send({
-      name: 'doguinho',
-      about: 'doguinho bonitinho',
-      available: 'true',
-      year_old: '3 anos',
-      orgId: responseOrg.body.id,
-    })
+    const { body } = await request(app.server)
+      .post('/login')
+      .send({ email: 'org.email@email.com', password: '123456' })
+    console.log('🚀 ~ file: Create.spec.ts:22 ~ it ~ body:', body)
+
+    const response = await request(app.server)
+      .post('/pets')
+      .set('Authorization', `Bearer ${body.token}`)
+      .send({
+        name: 'doguinho',
+        about: 'doguinho bonitinho',
+        available: 'true',
+        year_old: '3 anos',
+        orgId: responseOrg.body.id,
+      })
 
     expect(response.statusCode).toEqual(201)
   })
