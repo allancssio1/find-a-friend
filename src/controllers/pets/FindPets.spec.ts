@@ -15,7 +15,7 @@ describe('Find Pet', () => {
 
     const org = await prisma.org.findFirstOrThrow()
     let petId = ''
-    for (let index = 0; index > 3; index++) {
+    for (let index = 0; index < 3; index++) {
       const pet = await prisma.pet.create({
         data: {
           name: 'doguinho',
@@ -26,7 +26,7 @@ describe('Find Pet', () => {
         },
       })
 
-      petId = index === 0 ? pet.id : ''
+      if (index === 0) petId = pet.id
     }
 
     const response = await request(app.server)
@@ -35,5 +35,10 @@ describe('Find Pet', () => {
       .send()
 
     expect(response.statusCode).toEqual(200)
+    expect(response.body).toEqual(
+      expect.objectContaining({
+        id: petId,
+      }),
+    )
   })
 })

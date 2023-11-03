@@ -3,7 +3,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import request from 'supertest'
 import { createAndAuthenticateUser } from '@/utils/test/createAnAuthenticateOrg'
 import { prisma } from '@/lib/prisma'
-describe('Create Org', () => {
+describe('Create Pet', () => {
   beforeAll(async () => {
     await app.ready()
   })
