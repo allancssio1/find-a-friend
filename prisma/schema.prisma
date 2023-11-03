@@ -10,6 +10,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  ADMIN
+  MEMBER
+}
+
 model Org {
   id               String    @id @unique @default(uuid())
   name             String
@@ -24,6 +29,7 @@ model Org {
   address_number   String?
   created_at       DateTime? @default(now())
   Pet              Pet[]
+  role             Role      @default(MEMBER)
 
   @@map("orgs")
 }

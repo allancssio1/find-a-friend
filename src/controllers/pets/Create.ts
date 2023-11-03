@@ -19,19 +19,16 @@ export async function createPet(req: FastifyRequest, reply: FastifyReply) {
     available: z.string().refine((value) => value ?? null, {
       message: 'Available is required with "true" or "false".',
     }),
-    orgId: z
-      .string()
-      .refine((value) => value ?? null, { message: 'Org id is required.' }),
     images: z.array(z.object({})).optional(),
   })
 
-  const { name, about, available, year_old, orgId } = createBodySchema.parse(
-    req.body,
-  )
+  const { name, about, available, year_old } = createBodySchema.parse(req.body)
+
+  const { sub } = req.user
 
   const availableTemp = available === 'true' ?? false
   const findOrgUseCase = makeFindOrgUseCase()
-  const { org } = await findOrgUseCase.execute(orgId)
+  const { org } = await findOrgUseCase.execute(sub)
 
   if (!org) return reply.status(404).send({ message: 'Org not found!' })
 
@@ -42,7 +39,7 @@ export async function createPet(req: FastifyRequest, reply: FastifyReply) {
     about,
     year_old,
     available: availableTemp,
-    orgId,
+    orgId: sub,
   })
   return reply.status(201).send(pet)
 }
